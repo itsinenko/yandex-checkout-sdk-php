@@ -82,10 +82,12 @@ class CreatePaymentRequestSerializer
                 $result['receipt'] = array();
                 foreach ($receipt->getItems() as $item) {
                     $result['receipt']['items'][] = array(
-                        'description' => $item->getDescription(),
-                        'amount'      => $this->serializeAmount($item->getPrice()),
-                        'quantity'    => $item->getQuantity(),
-                        'vat_code'    => $item->getVatCode(),
+                        'description'     => $item->getDescription(),
+                        'amount'          => $this->serializeAmount($item->getPrice()),
+                        'quantity'        => $item->getQuantity(),
+                        'vat_code'        => $item->getVatCode(),
+                        'payment_subject' => $item->getPaymentSubject(),
+                        'payment_mode'    => $item->getPaymentMode(),
                     );
                 }
                 $value = $receipt->getEmail();

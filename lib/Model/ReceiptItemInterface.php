@@ -75,4 +75,16 @@ interface ReceiptItemInterface
      * @return bool True если доставка, false если обычный товар
      */
     function isShipping();
+
+    /**
+     * Возвращает признак предмета расчета
+     * @return ReceiptPaymentSubject Признак предмета расчета
+     */
+    function getPaymentSubject();
+
+    /**
+     * Возвращает признак способа расчета
+     * @return ReceiptPaymentMode Признак способа расчета
+     */
+    function getPaymentMode();
 }

@@ -71,6 +71,16 @@ class ReceiptItem extends AbstractObject implements ReceiptItemInterface
     private $_shipping = false;
 
     /**
+     * @var string Признак предмета расчета
+     */
+    private $_paymentSubject;
+
+    /**
+     * @var string Признак способа расчета
+     */
+    private $_paymentMode;
+
+    /**
      * Возвращает наименование товара
      * @return string Наименование товара
      */
@@ -229,6 +239,70 @@ class ReceiptItem extends AbstractObject implements ReceiptItemInterface
     public function isShipping()
     {
         return $this->_shipping;
+    }
+
+    /**
+     * Возвращает признак предмета расчета
+     * @return string Признак предмета расчета
+     */
+    public function getPaymentSubject()
+    {
+        return $this->_paymentSubject;
+    }
+
+    /**
+     * Устанавливает признак предмета расчета
+     * @param string $value Признак предмета расчета
+     *
+     * @throws InvalidPropertyValueException Выбрасывается если переданная строка не является валидным статусом
+     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     */
+    public function setPaymentSubject($value)
+    {
+        if (TypeCast::canCastToEnumString($value)) {
+            if (!ReceiptPaymentSubject::valueExists((string)$value)) {
+                throw new InvalidPropertyValueException(
+                    'Invalid payment subject value in ReceiptItem', 0, 'ReceiptItem.paymentSubject', $value
+                );
+            }
+            $this->_paymentSubject = (string)$value;
+        } else {
+            throw new InvalidPropertyValueTypeException(
+                'Invalid payment subject value type in ReceiptItem', 0, 'ReceiptItem.paymentSubject', $value
+            );
+        }
+    }
+
+    /**
+     * Возвращает признак способа расчета
+     * @return string Признак способа расчета
+     */
+    public function getPaymentMode()
+    {
+        return $this->_paymentMode;
+    }
+
+    /**
+     * Устанавливает признак способа расчета
+     * @param string $value Признак способа расчета
+     *
+     * @throws InvalidPropertyValueException Выбрасывается если переданная строка не является валидным статусом
+     * @throws InvalidPropertyValueTypeException Выбрасывается если в метод была передана не строка
+     */
+    public function setPaymentMode($value)
+    {
+        if (TypeCast::canCastToEnumString($value)) {
+            if (!ReceiptPaymentMode::valueExists((string)$value)) {
+                throw new InvalidPropertyValueException(
+                    'Invalid payment mode value in ReceiptItem', 0, 'ReceiptItem.paymentMode', $value
+                );
+            }
+            $this->_paymentMode = (string)$value;
+        } else {
+            throw new InvalidPropertyValueTypeException(
+                'Invalid payment mode value type in ReceiptItem', 0, 'ReceiptItem.paymentMode', $value
+            );
+        }
     }
 
     /**
